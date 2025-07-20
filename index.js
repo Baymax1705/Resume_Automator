@@ -4,8 +4,12 @@ import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import mongoose from 'mongoose';
 import fs from 'fs';
 import path from 'path';
+import dotenv from 'dotenv';
 import { User_Model, Submitted_forms_Model, Internshala_user_Model } from './data_base.js';
 import { generate } from './ai.js';
+
+// Load environment variables
+dotenv.config();
 
 const JWT_SECRET='ajldkldlkdshdhfh2342fddssxcbnb';
 await mongoose.connect("mongodb+srv://arinbalyan:ldZsIikKx3mlwSRf@cluster0.cksskgm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/Internshala_filler_database");
@@ -230,9 +234,9 @@ const fillAdditionalQuestions = async (page,company,title) => {
     await page.click('#login-link-container span');
     await new Promise(res => setTimeout(res, 2000));
 
-    await page.type('#modal_email', 'arinbalyan2004@gmail.com', { delay: 125 });
+    await page.type('#modal_email', process.env.userid, { delay: 125 });
     await new Promise(res => setTimeout(res, 1600));
-    await page.type('#modal_password', 'arinisgreat', { delay: 180 });
+    await page.type('#modal_password', process.env.password, { delay: 180 });
         await new Promise(res => setTimeout(res, 3000));
 
     await page.click('#modal_login_submit');
